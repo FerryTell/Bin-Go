@@ -50,26 +50,59 @@ var piechart = AmCharts.makeChart( "piechart", {
   "theme": "light",
   "startDuration": 0,
   "dataProvider": [ {
-    "title": "Tai Po",
-    "value": 4852
+      "title": "Central and Western",
+      "value": 1364
+  }, {
+      "title": "Eastern",
+      "value": 1011
+  },{
+      "title": "Southern",
+      "value": 594
+  }, {
+      "title": "Wan Chai",
+      "value": 1033
+  }, {
+      "title": "Sham Shui Po",
+      "value": 765
+  }, {
+      "title": "Kowloon City",
+      "value": 1033
+  }, {
+      "title": "Kwun Tong",
+      "value": 942
+  }, {
+    "title": "Wong Tai Sin",
+    "value": 618
+  }, {
+    "title": "Yau Tsim Mong",
+    "value": 755
+  },{
+    "title": "Islands",
+    "value": 839
+  }, {
+    "title": "Kwai Tsing",
+    "value": 851
+  }, {
+    "title": "North",
+    "value": 620
   }, {
     "title": "Sai Kung",
-    "value": 9879
-  },{
-    "title": "North",
-    "value": 1029
+    "value": 1132
   }, {
-    "title": "Tuen Mun",
-    "value": 6239
+    "title": "Sha Tin",
+    "value": 1898
   }, {
-    "title": "ShaTin",
-    "value": 2800
+      "title": "Tai Po",
+      "value": 1148
   }, {
-    "title": "Tsuen Wan",
-    "value": 1819
+      "title": "Tsuen Wan",
+      "value": 685
   }, {
-    "title": "Islands",
-    "value": 1710
+      "title": "Tuen Mun",
+      "value": 852
+  }, {
+      "title": "Yuen Long",
+      "value": 1231
   } 
   ],
   "titleField": "title",
@@ -148,7 +181,7 @@ function zoomChart() {
 // generate some random data, quite different range
 function generateChartData() {
     var chartData = [];
-    var firstDate = new Date();
+    var firstDate = new Date('January 17, 2015 03:24:00');
     firstDate.setDate(firstDate.getDate() - 5);
     var visits = 1200;
     for (var i = 0; i < 1000; i++) {
@@ -268,7 +301,7 @@ map.on('load', function () {
                         },
                         "geometry": {
                             "type": "Point",
-                            "coordinates": [ 114.192386,22.434162]
+                            "coordinates": [ 114.9,22.434162]
                         }
                     }
             ]
