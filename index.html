@@ -34,6 +34,86 @@ var map = new mapboxgl.Map({
 	maxBounds: [[113.82, 22.07], [114.45, 22.56]]
 });
 
+map.on('load', function () {
+    // Add a layer showing the places.
+    map.addLayer({
+        "id": "places",
+        "type": "symbol",
+        "source": {
+            "type": "geojson",
+            "data": {
+                "type": "FeatureCollection",
+                "features": [{
+                    "type": "Feature",
+                    "properties": {
+                        "description": "<strong>Tai Po Refuse Collection Point</strong><p><a href=\"https://www.fehd.gov.hk/english/map/refuse/index.html?districtID=TP&type=refuse&next=refuse_pt\" target=\"_blank\" title=\"Opens in a new window\">Open at 0500 - 2300</a>大埔安埔路</p>",
+                        "icon": "star"
+                    },
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [114.172529,22.454699]
+                    }
+                }, {
+                    "type": "Feature",
+                    "properties": {
+                        "description": "<strong>Man On Shan Refuse Collection Point</strong><p><a href=\"https://www.fehd.gov.hk/english/map/refuse/index.html?districtID=TP&type=refuse&next=refuse_pt\" target=\"_blank\" title=\"Opens in a new window\">Open at 0500 - 0100 </a>馬鞍山馬鞍山村路</p>",
+                        "icon": "star"
+                    },
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [114.232737,22.417868]
+                    }
+                },
+                    {
+                        "type": "Feature",
+                        "properties": {
+                            "description": "<strong>Tai Po Hui Refuse Collection Point</strong><p><a href=\"https://www.fehd.gov.hk/english/map/refuse/index.html?districtID=TP&type=refuse&next=refuse_pt\" target=\"_blank\" title=\"Opens in a new window\">Open at 0500 - 0100 </a>大埔滘優景里</p>",
+                            "icon": "star"
+                        },
+                        "geometry": {
+                            "type": "Point",
+                            "coordinates": [ 114.192386,22.434162]
+                        }
+                    }
+            ]
+            }
+        },
+        "layout": {
+            "icon-image": "{icon}-15",
+            "icon-allow-overlap": true
+        }
+    });
+
+    // When a click event occurs on a feature in the places layer, open a popup at the
+    // location of the feature, with description HTML from its properties.
+    map.on('click', 'places', function (e) {
+        var coordinates = e.features[0].geometry.coordinates.slice();
+        var description = e.features[0].properties.description;
+
+        // Ensure that if the map is zoomed out such that multiple
+        // copies of the feature are visible, the popup appears
+        // over the copy being pointed to.
+        while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+            coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+        }
+
+        new mapboxgl.Popup()
+            .setLngLat(coordinates)
+            .setHTML(description)
+            .addTo(map);
+    });
+
+    // Change the cursor to a pointer when the mouse is over the places layer.
+    map.on('mouseenter', 'places', function () {
+        map.getCanvas().style.cursor = 'pointer';
+    });
+
+    // Change it back to a pointer when it leaves.
+    map.on('mouseleave', 'places', function () {
+        map.getCanvas().style.cursor = '';
+    });
+});
+
 var geojson = {
    "type": "FeatureCollection",
    "features": [
@@ -11435,7 +11515,7 @@ geojson.features.forEach(function(marker) {
     el.className = `fas fa-trash-alt fa-lg level${marker.properties.level}`;
 	
 	var popup = new mapboxgl.Popup({ offset: 25 })
-	.setHTML(marker.properties.description);
+	.setText("Usage: " + marker.properties.percentage*100 + "%");
 
 
     // add marker to map
