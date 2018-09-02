@@ -11534,7 +11534,7 @@ geojson.features.forEach(function(marker) {
     el.className = `fas fa-trash-alt fa-lg level${marker.properties.level}`;
 	
 	var popup = new mapboxgl.Popup({ offset: 25 })
-	.setText("Usage: " + marker.properties.percentage*100 + "%" + marker.geometry.coordinates);
+	.setText("Usage: " + marker.properties.percentage*100 + "%");
 
 
     // add marker to map
@@ -18969,18 +18969,6 @@ var geojson2 = {
     "index":611,
     "percentage":0.873642336,
     "level":5
-    }
-  },
-  {
-    "type": "Feature",
-    "geometry": {
-       "type": "Point",
-       "coordinates":  [ 114.1638609,22.4495384 ]
-    },
-    "properties": {
-    "index":612,
-    "percentage":0.506152297,
-    "level":3
     }
   },
   {
