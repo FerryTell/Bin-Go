@@ -29,9 +29,61 @@ mapboxgl.accessToken = 'pk.eyJ1IjoiaXZhbm1hbmciLCJhIjoiY2psajdycTY1MDkydTN3bzVlO
 var map = new mapboxgl.Map({
     container: 'map', // container id
     style: 'mapbox://styles/mapbox/streets-v9', // stylesheet location
-    //center: [114.15, 22.28], // starting position [lng, lat]
-    zoom: 0, // starting zoom
-	maxBounds: [[113.82, 22.07], [114.45, 22.56]]
+    center: [114.167647,22.453216], // starting position [lng, lat]
+    zoom: 15, // starting zoom
+	//maxBounds: [[113.82, 22.07], [114.45, 22.56]]
+});
+
+map.on('load', function () {
+    map.addLayer({
+        "id": "route",
+        "type": "line",
+        "source": {
+            "type": "geojson",
+            "data": {
+                "type": "Feature",
+                "properties": {},
+                "geometry": {
+                    "type": "LineString",
+                    "coordinates": [
+						[114.172529,22.4543],
+						[114.169965, 22.454102],
+						[114.169643, 22.453428],
+						[114.168688, 22.453349],
+						[114.168624,22.452883 ],
+						[114.167369, 22.452843 ],
+						[114.167317, 22.451102],
+						[114.166894, 22.449280 ],
+						[114.165788, 22.447016 ],
+						[114.167313,22.446264],
+						[114.166893, 22.445547],
+						[114.166726, 22.445121 ],
+						[114.166705,22.444599],
+						[114.168040,22.443698],
+						[114.1692339,22.4433],
+						[114.170315,22.443098],
+						[114.171302,22.443688],
+						[114.171860,22.444442],
+						[114.172044,22.446785 ],						
+						[114.171776,22.448540 ],
+						[114.171959,22.450573],
+						[114.172495,22.452913 ],
+						[114.172230,22.45428],
+						[114.172529,22.4543],
+						
+                    ]
+                }
+            }
+        },
+        "layout": {
+            "line-join": "round",
+            "line-cap": "round"
+        },
+        "paint": {
+            "line-color": "#888",
+            "line-width": 8
+        }
+    });
 });
 
 var geojson = {
@@ -11435,7 +11487,7 @@ geojson.features.forEach(function(marker) {
     el.className = `fas fa-trash-alt fa-lg level${marker.properties.level}`;
 	
 	var popup = new mapboxgl.Popup({ offset: 25 })
-	.setHTML(marker.properties.description);
+	.setText(marker.geometry.coordinates);
 
 
     // add marker to map
